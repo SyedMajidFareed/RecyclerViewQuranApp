@@ -1,0 +1,78 @@
+package com.example.recyclerviewapp;
+
+import android.content.Context;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+
+import com.readystatesoftware.sqliteasset.SQLiteAssetHelper;
+
+public class DBhelper extends SQLiteAssetHelper {
+    public static final String DBNAME = "quran_database.db";
+    public static final int DBVERSION = 1;
+    public static final String TNAME = "tsurah";
+
+    public DBhelper(Context context) {
+        super(context,DBNAME,null,DBVERSION);
+    }
+    //function to get data(recitation) from database
+    public String[] gettingArabic()
+    {
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        Cursor cursorCourses = db.rawQuery("SELECT Arabic_Text FROM tayah" , null);
+
+        int i = 0;
+        String[] data = new String[6348];
+        if (cursorCourses.moveToFirst()) {
+
+            do {
+                data[i] = (
+                        cursorCourses.getString(0)
+                );
+                i++;
+            } while (cursorCourses.moveToNext());
+        }
+        cursorCourses.close();
+        return data;
+    }
+    public String[] gettingUrduFMJ()
+    {
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        Cursor cursorCourses = db.rawQuery("SELECT Fateh_Muhammad_Jalandhari FROM tayah" , null);
+
+        int i = 0;
+        String[] data = new String[6348];
+        if (cursorCourses.moveToFirst()) {
+
+            do {
+                data[i] = (
+                        cursorCourses.getString(0)
+                );
+                i++;
+            } while (cursorCourses.moveToNext());
+        }
+        cursorCourses.close();
+        return data;
+    }
+    public String[] gettingEnglishMTU()
+    {
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        Cursor cursorCourses = db.rawQuery("SELECT Mufti_Taqi_Usmani FROM tayah" , null);
+
+        int i = 0;
+        String[] data = new String[6348];
+        if (cursorCourses.moveToFirst()) {
+
+            do {
+                data[i] = (
+                        cursorCourses.getString(0)
+                );
+                i++;
+            } while (cursorCourses.moveToNext());
+        }
+        cursorCourses.close();
+        return data;
+    }
+}

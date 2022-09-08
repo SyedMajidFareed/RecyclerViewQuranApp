@@ -57,32 +57,26 @@ public class MainActivity extends AppCompatActivity {
             {
                 switch (menuItem.getItemId())
                 {
-                    case R.id.nav_book :
-                        Toast.makeText(getApplicationContext(),"Return is Clicked",Toast.LENGTH_LONG).show();
-                        //Intent intent = new Intent(MainActivity.this, BookActivity.class);
-                        //startActivity(intent);
-                        //drawerLayout.closeDrawer(GravityCompat.START);
-                        break;
-
-                    case R.id.nav_return :
-                        Toast.makeText(getApplicationContext(),"Return is Clicked",Toast.LENGTH_LONG).show();
-                        //drawerLayout.closeDrawer(GravityCompat.START);
-                        break;
-
-                    case R.id.nav_laptop :
-                        Toast.makeText(getApplicationContext(),"Laptop is clicked",Toast.LENGTH_LONG).show();
+                    case R.id.recite:
+                        //Toast.makeText(getApplicationContext(),"Return is Clicked",Toast.LENGTH_LONG).show();
+                        Intent intent = new Intent(MainActivity.this, RecitationActivity.class);
+                        startActivity(intent);
                         drawerLayout.closeDrawer(GravityCompat.START);
                         break;
 
-                    case R.id.nav_voice :
-                        Toast.makeText(getApplicationContext(),"Voice is clicked",Toast.LENGTH_LONG).show();
+                    case R.id.urdu:
+                        //Toast.makeText(getApplicationContext(),"Return is Clicked",Toast.LENGTH_LONG).show();
+                        Intent intent2 = new Intent(MainActivity.this, UrduActivity.class);
+                        startActivity(intent2);
                         drawerLayout.closeDrawer(GravityCompat.START);
                         break;
 
-                    case R.id.nav_chrome_reader :
-                        Toast.makeText(getApplicationContext(),"Chrome Reader is clicked",Toast.LENGTH_LONG).show();
+                    case R.id.english:
+                        Intent intent3 = new Intent(MainActivity.this, EnglishActivity.class);
+                        startActivity(intent3);
                         drawerLayout.closeDrawer(GravityCompat.START);
                         break;
+
                 }
 
                 return true;

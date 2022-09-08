@@ -1,6 +1,8 @@
 package com.example.recyclerviewapp;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,34 +14,34 @@ import java.util.ArrayList;
 
 public class RecitationActivity extends AppCompatActivity {
 
+    RecyclerView recycleview;
+    QDH data = new QDH();
+    ArrayList<ListModel> list = new ArrayList<>();
+    String Req;
 
-    ListView listView;
-    DBhelper helper;
-    int pos=0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_recitation);
-        listView = findViewById(R.id.list);
-        helper = new DBhelper(this);
-        ArrayList<String> data= new ArrayList<>();
-        GivenData givenData = new GivenData();
+        setContentView(R.layout.activity_english);
+        recycleview = findViewById(R.id.ERV);
+        Intent intent = getIntent();
+        Req= intent.getStringExtra("required");
+        initRecyclerView();
+    }
 
-        for (String item: givenData.englishSurahNames)
-        {
-            data.add(item);
+    private void initRecyclerView() {
+        RecyclerViewAdapterEnglish RVadapter = new RecyclerViewAdapterEnglish(Req);
+        recycleview.setAdapter(RVadapter);
+//      recycleview.setLayoutManager(new StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL));
+//        recycleview.setLayoutManager(new LinearLayoutManager(this));
+        recycleview.setLayoutManager(new GridLayoutManager(this, 3));
+
+        String[] data2 = data.getEnglishSurahNames();
+        for (int i = 0; i < data2.length; i++) {
+            int j = i + 1;
+            list.add(new ListModel(data2[i], j));
         }
-        listView = findViewById(R.id.list);
-        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, data);
-        listView.setAdapter(arrayAdapter);
-        listView.setOnItemClickListener((adapterView, view, i, l) -> {
-            String text = "You Clicked on Position " + i;
-            pos=i;
-            Toast.makeText(getApplicationContext(),text,Toast.LENGTH_LONG).show();
-            Intent intent = new Intent(RecitationActivity.this, ArabicActivity.class);
-            intent.putExtra("positionIndex",String.valueOf(pos));
-            startActivity(intent);
+        RVadapter.setData(list);
 
-        });
     }
 }
